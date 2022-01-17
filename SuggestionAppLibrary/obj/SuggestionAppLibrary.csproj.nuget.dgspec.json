@@ -1,0 +1,64 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\MJP\\repos\\SuggestionApp\\SuggestionAppLibrary\\SuggestionAppLibrary.csproj": {}
+  },
+  "projects": {
+    "D:\\MJP\\repos\\SuggestionApp\\SuggestionAppLibrary\\SuggestionAppLibrary.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\MJP\\repos\\SuggestionApp\\SuggestionAppLibrary\\SuggestionAppLibrary.csproj",
+        "projectName": "SuggestionAppLibrary",
+        "projectPath": "D:\\MJP\\repos\\SuggestionApp\\SuggestionAppLibrary\\SuggestionAppLibrary.csproj",
+        "packagesPath": "C:\\Users\\mjp.DESKTOP-G22344N\\.nuget\\packages\\",
+        "outputPath": "D:\\MJP\\repos\\SuggestionApp\\SuggestionAppLibrary\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\mjp.DESKTOP-G22344N\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://nuget.devexpress.com/K9sFfOCe4qrPpAjpZANzEVYYAzfF6teOU63zWdIh7dRQrBylQP/api": {},
+          "https://www.myget.org/F/caliburn-micro-builds/api/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200-preview.21617.4\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
