@@ -2,8 +2,23 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>44658736-ed5d-4687-9d2b-ddedaa846b5d</UserSecretsId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Components\" />
+    <Folder Include="Models\" />
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Identity.Web" Version="1.22.1" />
+    <PackageReference Include="Microsoft.Identity.Web.UI" Version="1.22.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SuggestionAppLibrary\SuggestionAppLibrary.csproj" />
+  </ItemGroup>
 
 </Project>
