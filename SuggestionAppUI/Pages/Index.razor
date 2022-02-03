@@ -7,6 +7,76 @@
 @inject NavigationManager navManager
 @inject ProtectedSessionStorage sessionStorage
 
+<h1>Training Suggestions</h1>
+<div>
+	<button>Suggest</button>
+</div>
+
+<div>
+	<div>@suggestions?.Count Suggestions</div>
+	<div>
+		<button @onclick="(() => OrderByNew(true))">New</button>
+		<button @onclick="(() => OrderByNew(false))">Popular</button>
+	</div>
+	<div>
+		<input type="text" placeholder="Search"
+					 aria-label="Search box"
+					 @oninput="((txt) => OnSearchInput((string)txt.Value))" />
+	</div>
+</div>
+
+<div>
+	<div>
+		@if (suggestions is not null)
+		{
+			<Virtualize Items="@suggestions" Context="s" OverscanCount="10">
+				<div>
+					<div>@GetUpvoteTopText(s)</div>
+					<span class="oi oi-caret-top"></span>
+					<div>@GetUpvoteBottomText(s)</div>
+				</div>
+				<div>
+					<div @onclick="(() => OpenDetails(s))">
+						@s.Suggestion
+					</div>
+					<div>
+						<div @onclick="(()=>OpenDetails(s))">
+							@s.Category?.CategoryName
+						</div>
+					</div>
+					<div>
+						@s.SuggestionStatus?.StatusName
+					</div>
+				</div>
+			</Virtualize>
+		}
+	</div>
+	<div>
+		@if (categories is not null)
+		{
+			<div>
+				<span>Category</span>
+				<div @onclick="(()=> OnCategoryClick())">All</div>
+				@foreach (var c in categories)
+				{
+					<div @onclick="(()=> OnCategoryClick(c.CategoryName))">@c.CategoryName</div>
+				}
+			</div>
+		}
+		@if (statuses is not null)
+		{
+			<div>
+				<span>Status</span>
+				<div @onclick="(()=> OnStatusClick())">All</div>
+				@foreach (var s in statuses)
+				{
+					<div @onclick="(()=> OnStatusClick(s.StatusName))">@s.StatusName</div>
+				}
+			</div>
+		}
+	</div>
+</div>
+
 @code {
 	private List<SuggestionModel> suggestions;
 	private List<CategoryModel> categories;
@@ -29,7 +99,6 @@
 		{
 			await LoadFilterState();
 			await FilterSuggestions();
-
 			StateHasChanged();
 		}
 	}
@@ -71,11 +140,11 @@
 			output = output.Where(s => s.SuggestionStatus?.StatusName == selectedStatus).ToList();
 		}
 
-		if (string.IsNullOrWhiteSpace(searchText))
+		if (string.IsNullOrWhiteSpace(searchText) == false)
 		{
 			output = output.Where(
-				s => s.Suggestion.Contains(searchText, StringComparison.InvariantCultureIgnoreCase) ||
-				s.Description.Contains(searchText, StringComparison.InvariantCultureIgnoreCase)
+					s => s.Suggestion.Contains(searchText, StringComparison.InvariantCultureIgnoreCase) ||
+					s.Description.Contains(searchText, StringComparison.InvariantCultureIgnoreCase)
 			).ToList();
 		}
 
@@ -86,7 +155,7 @@
 		else
 		{
 			output = output.OrderByDescending(s => s.UserVotes.Count)
-			.ThenByDescending(s => s.DateCreated).ToList();
+											.ThenByDescending(s => s.DateCreated).ToList();
 		}
 
 		suggestions = output;
@@ -120,13 +189,13 @@
 
 	private string GetUpvoteTopText(SuggestionModel suggestion)
 	{
-		if (suggestion.UserVotes?.Count >0)
+		if (suggestion.UserVotes?.Count > 0)
 		{
 			return suggestion.UserVotes.Count.ToString("00");
 		}
 		else
 		{
-			return "Click to";
+			return "Click To";
 		}
 	}
 
