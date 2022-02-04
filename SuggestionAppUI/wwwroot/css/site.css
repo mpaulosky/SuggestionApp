@@ -16,16 +16,16 @@ h1, h2, h3, h4, h5, h6 {
 body {
     background: url(../images/SuggestionPageBackground.png) no-repeat center center fixed;
     background-size: cover;
-    height: 100%
+    height: 100%;
 }
 
 h1 {
     padding-top: 1rem;
 }
 
-h1:focus {
-    outline: none;
-}
+    h1:focus {
+        outline: none;
+    }
 
 a, .btn-link {
     color: #0071c1;
