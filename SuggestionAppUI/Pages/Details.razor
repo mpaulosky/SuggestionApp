@@ -1,7 +1,9 @@
 ﻿@page "/Details/{Id}"
 
+@inject AuthenticationStateProvider authProvider
 @inject ISuggestionData suggestionData
 @inject NavigationManager navManager
+@inject IUserData userData
 
 <h1>Suggestion Details</h1>
 
@@ -11,7 +13,7 @@
 		{
 			<div>
 				<div>
-					<div>
+					<div @onclick="VoteUp">
 						<div>@GetUpvoteTopText()</div>
 						<span class="oi oi-caret-top"></span>
 						<div>@GetUpvoteBottomText()</div>
@@ -52,41 +54,98 @@
 @code {
 	[Parameter]
 	public string Id { get; set; }
+	private UserModel loggedInUser;
 
 	private SuggestionModel suggestion;
 
 	protected async override Task OnInitializedAsync()
 	{
 		suggestion = await suggestionData.GetSuggestion(Id);
+		loggedInUser = await authProvider.GetUserFromAuth(userData);
 	}
 
-	private void ClosePage()
+	private async Task VoteUp()
 	{
-		navManager.NavigateTo("/");
-	}
 
-
-	private string GetUpvoteTopText()
-	{
-		if (suggestion.UserVotes?.Count > 0)
+		if (loggedInUser is not null)
 		{
-			return suggestion.UserVotes.Count.ToString("00");
+
+			if (suggestion.Author.Id == loggedInUser.Id)
+			{
+
+				// Can't vote on your own suggestion
+				return;
+
+			}
+
+			if (suggestion.UserVotes.Add(loggedInUser.Id) == false)
+			{
+
+				suggestion.UserVotes.Remove(loggedInUser.Id);
+
+			}
+
+			await suggestionData.UpVoteSuggestion(suggestion.Id, loggedInUser.Id);
+
 		}
 		else
 		{
-			return "Click To";
+
+			navManager.NavigateTo("/MicrosoftIdentity/Account/SignIn", true);
+
+		}
+	}
+
+	private string GetUpvoteTopText()
+	{
+
+		if (suggestion.UserVotes?.Count > 0)
+		{
+
+			return suggestion.UserVotes.Count.ToString("00");
+
+		}
+		else
+		{
+
+			if (suggestion.Author.Id == loggedInUser?.Id)
+			{
+
+				return "Awaiting";
+
+			}
+			else
+			{
+
+				return "Click To";
+
+			}
+
 		}
 	}
 
 	private string GetUpvoteBottomText()
 	{
+
 		if (suggestion.UserVotes?.Count > 1)
 		{
+
 			return "Upvotes";
+
 		}
 		else
 		{
+
 			return "Upvote";
+
 		}
 	}
+
+	private void ClosePage()
+	{
+
+		navManager.NavigateTo("/");
+
+	}
+
 }
