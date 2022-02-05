@@ -4,10 +4,10 @@ namespace SuggestionAppLibrary.DataAccess;
 
 public class MongoSuggestionData : ISuggestionData
 {
-	private readonly IMongoCollection<SuggestionModel> _suggestions;
 	private readonly IDbConnection _db;
 	private readonly IUserData _userData;
 	private readonly IMemoryCache _cache;
+	private readonly IMongoCollection<SuggestionModel> _suggestions;
 	private const string CacheName = "SuggestionData";
 
 	public MongoSuggestionData(IDbConnection db, IUserData userData, IMemoryCache cache)
@@ -21,7 +21,6 @@ public class MongoSuggestionData : ISuggestionData
 	public async Task<List<SuggestionModel>> GetAllSuggestions()
 	{
 		var output = _cache.Get<List<SuggestionModel>>(CacheName);
-
 		if (output is null)
 		{
 			var results = await _suggestions.FindAsync(s => s.Archived == false);
@@ -36,27 +35,15 @@ public class MongoSuggestionData : ISuggestionData
 	public async Task<List<SuggestionModel>> GetUsersSuggestions(string userId)
 	{
 		var output = _cache.Get<List<SuggestionModel>>(userId);
-
 		if (output is null)
 		{
-			var results = await _suggestions.FindAsync(s=> s.Author.Id == userId);
+			var results = await _suggestions.FindAsync(s => s.Author.Id == userId);
 			output = results.ToList();
+
 			_cache.Set(userId, output, TimeSpan.FromMinutes(1));
 		}
 
 		return output;
-	}
-
-	public async Task<List<SuggestionModel>> GetSuggestionModels()
-	{
-		var output = await GetAllSuggestions();
-		return output.Where(s => s.ApprovedForRelease).ToList();
-	}
-
-	public async Task<SuggestionModel> GetSuggestion(string id)
-	{
-		var results = await _suggestions.FindAsync(s => s.Id == id);
-		return results.FirstOrDefault();
 	}
 
 	public async Task<List<SuggestionModel>> GetAllApprovedSuggestions()
@@ -65,12 +52,18 @@ public class MongoSuggestionData : ISuggestionData
 		return output.Where(x => x.ApprovedForRelease).ToList();
 	}
 
+	public async Task<SuggestionModel> GetSuggestion(string id)
+	{
+		var results = await _suggestions.FindAsync(s => s.Id == id);
+		return results.FirstOrDefault();
+	}
+
 	public async Task<List<SuggestionModel>> GetAllSuggestionsWaitingForApproval()
 	{
 		var output = await GetAllSuggestions();
-		return output.Where(s =>
-			s.ApprovedForRelease == false
-			&& s.Rejected == false).ToList();
+		return output.Where(x =>
+			 x.ApprovedForRelease == false
+			 && x.Rejected == false).ToList();
 	}
 
 	public async Task UpdateSuggestion(SuggestionModel suggestion)
@@ -79,7 +72,7 @@ public class MongoSuggestionData : ISuggestionData
 		_cache.Remove(CacheName);
 	}
 
-	public async Task UpVoteSuggestion(string suggestionId, string userId)
+	public async Task UpvoteSuggestion(string suggestionId, string userId)
 	{
 		var client = _db.Client;
 
@@ -90,9 +83,8 @@ public class MongoSuggestionData : ISuggestionData
 		try
 		{
 			var db = client.GetDatabase(_db.DbName);
-			var suggestionInTransaction = db.GetCollection<SuggestionModel>(_db.StatusCollectionName);
-			var suggestion =
-				(await suggestionInTransaction.FindAsync(s => s.Id == suggestionId)).First();
+			var suggestionsInTransaction = db.GetCollection<SuggestionModel>(_db.SuggestionCollectionName);
+			var suggestion = (await suggestionsInTransaction.FindAsync(s => s.Id == suggestionId)).First();
 
 			bool isUpvote = suggestion.UserVotes.Add(userId);
 			if (isUpvote == false)
@@ -100,10 +92,9 @@ public class MongoSuggestionData : ISuggestionData
 				suggestion.UserVotes.Remove(userId);
 			}
 
-			await suggestionInTransaction.ReplaceOneAsync(session,s => s.Id == suggestionId, suggestion);
+			await suggestionsInTransaction.ReplaceOneAsync(session, s => s.Id == suggestionId, suggestion);
 
 			var usersInTransaction = db.GetCollection<UserModel>(_db.UserCollectionName);
-
 			var user = await _userData.GetUser(userId);
 
 			if (isUpvote)
@@ -112,11 +103,9 @@ public class MongoSuggestionData : ISuggestionData
 			}
 			else
 			{
-				var suggestionToRemove =
-					user.VotedOnSuggestions.Where(s => s.Id == suggestionId).First();
+				var suggestionToRemove = user.VotedOnSuggestions.Where(s => s.Id == suggestionId).First();
 				user.VotedOnSuggestions.Remove(suggestionToRemove);
 			}
-
 			await usersInTransaction.ReplaceOneAsync(session, u => u.Id == userId, user);
 
 			await session.CommitTransactionAsync();
@@ -141,14 +130,12 @@ public class MongoSuggestionData : ISuggestionData
 		try
 		{
 			var db = client.GetDatabase(_db.DbName);
-			var suggestionInTransaction = db.GetCollection<SuggestionModel>(_db.SuggestionCollectionName);
-			await suggestionInTransaction.InsertOneAsync(session, suggestion);
+			var suggestionsInTransaction = db.GetCollection<SuggestionModel>(_db.SuggestionCollectionName);
+			await suggestionsInTransaction.InsertOneAsync(session, suggestion);
 
 			var usersInTransaction = db.GetCollection<UserModel>(_db.UserCollectionName);
-
 			var user = await _userData.GetUser(suggestion.Author.Id);
 			user.AuthoredSuggestions.Add(new BasicSuggestionModel(suggestion));
-
 			await usersInTransaction.ReplaceOneAsync(session, u => u.Id == user.Id, user);
 
 			await session.CommitTransactionAsync();
