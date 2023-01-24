@@ -4,11 +4,11 @@
 @using SuggestionAppUI.Components
 @using SuggestionAppUI.Models
 
-@inject AuthenticationStateProvider authProvider
-@inject ICategoryData categoryData
-@inject ISuggestionData suggestionData
-@inject IUserData userData
-@inject NavigationManager navManager
+@inject AuthenticationStateProvider AuthProvider
+@inject ICategoryData CategoryData
+@inject ISuggestionData SuggestionData
+@inject IUserData UserData
+@inject NavigationManager NavManager
 
 <h1>Make A Suggestion</h1>
 
@@ -16,23 +16,23 @@
 	<div>
 		<div>
 			<button @onclick="ClosePage"></button>
-			@if (categories is not null)
+			@if (_categories is not null)
 			{
-				<EditForm Model="suggestion" OnInvalidSubmit="CreateSuggestion">
+				<EditForm Model="_suggestion" OnInvalidSubmit="CreateSuggestion">
 					<DataAnnotationsValidator />
 					<ValidationSummary />
 					<div>
 						<label for="suggestion-text">Suggestion</label>
 						<div>Focus on the topic or technology you want to learn about.</div>
-						<InputText id="suggestion-text" @bind-Value="suggestion.Suggestion" />
+						<InputText id="suggestion-text" @bind-Value="_suggestion.Suggestion" />
 					</div>
 
 					<div>
 						<label for="category">Category</label>
 						<div>Choose one category.</div>
 						<div>
-							<MyInputRadioGroup id="category" @bind-Value="suggestion.CategoryId">
-								@foreach (var c in categories)
+							<MyInputRadioGroup id="category" @bind-Value="_suggestion.CategoryId">
+								@foreach (var c in _categories)
 								{
 									<div>
 										<InputRadio Value="@c.Id" id="@c.Id" />
@@ -45,7 +45,7 @@
 					<div>
 						<label for="description">Description</label>
 						<div>Briefly describ your suggestion.</div>
-						<InputTextArea id="description" @bind-Value="suggestion.Description" />
+						<InputTextArea id="description" @bind-Value="_suggestion.Description" />
 					</div>
 					<div>
 						<button type="submit">Suggest</button>
@@ -57,38 +57,38 @@
 </div>
 
 @code {
-	private CreateSuggestionModel suggestion = new();
-	private List<CategoryModel> categories;
-	private UserModel loggedInUser;
+	private CreateSuggestionModel _suggestion = new();
+	private List<CategoryModel> _categories;
+	private UserModel _loggedInUser;
 
-	protected async override Task OnInitializedAsync()
+	protected override async Task OnInitializedAsync()
 	{
-		categories = await categoryData.GetAllCategories();
+		_categories = await CategoryData.GetAllCategories();
 
-		loggedInUser = await authProvider.GetUserFromAuth(userData);
+		_loggedInUser = await AuthProvider.GetUserFromAuth(UserData);
 	}
 
 	private void ClosePage()
 	{
-		navManager.NavigateTo("/");
+		NavManager.NavigateTo("/");
 	}
 
 	private async Task CreateSuggestion()
 	{
 		SuggestionModel s = new();
-		s.Suggestion = suggestion.Suggestion;
-		s.Description = suggestion.Description;
-		s.Author = new BasicUserModel(loggedInUser);
-		s.Category = categories.Where(c => c.Id == suggestion.CategoryId).FirstOrDefault();
+		s.Suggestion = _suggestion.Suggestion;
+		s.Description = _suggestion.Description;
+		s.Author = new BasicUserModel(_loggedInUser);
+		s.Category = _categories.Where(c => c.Id == _suggestion.CategoryId).FirstOrDefault();
 
 		if (s.Category is null)
 		{
-			suggestion.CategoryId = "";
+			_suggestion.CategoryId = "";
 			return;
 		}
 
-		await suggestionData.CreateSuggestion(s);
-		suggestion = new();
+		await SuggestionData.CreateSuggestion(s);
+		_suggestion = new();
 		ClosePage();
 	}
 }

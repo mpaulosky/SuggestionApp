@@ -96,13 +96,13 @@
 	</div>
 }
 
-@if (rejedted?.Count > 0)
+@if (rejected?.Count > 0)
 {
 	<div>
 		<h2>Rejected Suggestions</h2>
 		<p>These are your suggestions that were not deemed to be appropriate for the training suggestion site.</p>
 		<hr />
-		@foreach (var s in rejedted)
+		@foreach (var s in rejected)
 		{
 			<hr />
 			<div>
@@ -128,7 +128,7 @@
 	private List<SuggestionModel> approved;
 	private List<SuggestionModel> archived;
 	private List<SuggestionModel> pending;
-	private List<SuggestionModel> rejedted;
+	private List<SuggestionModel> rejected;
 
 	protected async override Task OnInitializedAsync()
 	{
@@ -144,7 +144,7 @@
 				.ToList();
 			archived = submissions.Where(s => s.Archived && s.Rejected == false).ToList();
 			pending = submissions.Where(s => s.ApprovedForRelease == false && s.Rejected == false).ToList();
-			rejedted = submissions.Where(s => s.Rejected).ToList();
+			rejected = submissions.Where(s => s.Rejected).ToList();
 		}
 
 	}
