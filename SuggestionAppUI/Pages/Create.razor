@@ -67,12 +67,12 @@
 		_loggedInUser = await AuthProvider.GetUserFromAuth(UserData);
 	}
 
-	private void ClosePage()
+	public void ClosePage()
 	{
 		NavManager.NavigateTo("/");
 	}
 
-	private async Task CreateSuggestion()
+	public async Task CreateSuggestion()
 	{
 		SuggestionModel s = new();
 		s.Suggestion = _suggestion.Suggestion;
