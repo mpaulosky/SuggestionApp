@@ -112,7 +112,7 @@ public class MongoSuggestionData : ISuggestionData
 
 			_cache.Remove(CacheName);
 		}
-		catch (Exception ex)
+		catch (Exception)
 		{
 			await session.AbortTransactionAsync();
 			throw;
@@ -140,7 +140,7 @@ public class MongoSuggestionData : ISuggestionData
 
 			await session.CommitTransactionAsync();
 		}
-		catch (Exception ex)
+		catch (Exception)
 		{
 			await session.AbortTransactionAsync();
 			throw;
