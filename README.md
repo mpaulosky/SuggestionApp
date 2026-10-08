@@ -34,6 +34,7 @@ See the [CODE-OF-CONDUCT](./CODE-OF-CONDUCT.md) document.
 
 | Version | Date | Title | Blog post |
 | ------- | ---- | ----- | --------- |
+| [v0.0.2](https://github.com/mpaulosky/SuggestionApp/releases/tag/v0.0.2) | 2026-10-08 | chore: Re-apply the repo-ci-baseline Template | [Post](https://github.com/mpaulosky/SuggestionApp/blob/main/docs/blogs/2026-10-08-pr-7-chore-re-apply-the-repo-ci-baseline-template.md) |
 | [v0.0.1](https://github.com/mpaulosky/SuggestionApp/releases/tag/v0.0.1) | 2026-10-08 | chore: Standardize on the repo-ci-baseline Template | [Post](https://github.com/mpaulosky/SuggestionApp/blob/main/docs/blogs/2026-10-08-pr-5-chore-standardize-on-the-repo-ci-baseline-template.md) |
 
 <!-- RELEASES_END -->
