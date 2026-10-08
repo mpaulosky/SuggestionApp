@@ -12,7 +12,8 @@ README files you write are appealing, informative, and easy to read.
 
 ## Plan
 
-This plan details how to review and update copyright headers in C# files, supporting both single-file and solution-wide operations. It ensures every file has the correct header, updating or inserting as needed.
+This plan details how to review and update copyright headers in C# files, supporting both single-file and solution-wide operations.
+It ensures every file has the correct header, updating or inserting as needed.
 
 **Header Example (as required):**
 
@@ -27,7 +28,6 @@ This plan details how to review and update copyright headers in C# files, suppor
 //=======================================================
 
 ```
-
 
 **Steps:**
 

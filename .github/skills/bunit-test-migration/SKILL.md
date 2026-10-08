@@ -5,11 +5,13 @@ description: Migrate bUnit test files from deprecated beta API (1.0.0-beta-10) t
 
 # bUnit Test Migration Skill (Beta → 2.x)
 
-This skill provides guidance for migrating test files from the deprecated bUnit 1.0.0-beta-10 API to bUnit 2.5.3 stable API. Use this when you encounter test files using the old `TestComponentBase`, `<Fixture>`, or `<SnapshotTest>` patterns.
+This skill provides guidance for migrating test files from the deprecated bUnit 1.0.0-beta-10 API to bUnit 2.5.3 stable API.
+Use this when you encounter test files using the old `TestComponentBase`, `<Fixture>`, or `<SnapshotTest>` patterns.
 
 ## When to Apply
 
 Apply this skill when a `.razor` test file contains any of these patterns:
+
 - `@inherits TestComponentBase`
 - `<Fixture Test="...">`
 - `<ComponentUnderTest>`
@@ -127,7 +129,7 @@ Remove these XML elements entirely (keep only the component inside):
 Pattern: `ComponentName_Scenario_ExpectedResult`
 
 | Component | Scenario | Result | Test Name |
-|-----------|----------|--------|-----------|
+| ----------- | ---------- | -------- | ----------- |
 | Button | Click | InvokesHandler | `Button_Click_InvokesHandler` |
 | DataList | EmptySource | ShowsEmptyTemplate | `DataList_EmptySource_ShowsEmptyTemplate` |
 | GridView | WithData | RendersRows | `GridView_WithData_RendersRows` |
@@ -234,7 +236,7 @@ For debugging complex tests, you can optionally enable xUnit logging:
 ## Quick Reference Table
 
 | Old Pattern | New Pattern |
-|-------------|-------------|
+| ------------- | ------------- |
 | `@inherits TestComponentBase` | `@inherits BunitContext` |
 | `<Fixture Test="Name">` | Remove |
 | `<ComponentUnderTest>` | Remove |
@@ -261,7 +263,7 @@ dotnet test src/BlazorWebFormsComponents.Test --filter "FullyQualifiedName~Compo
 ## Common Errors
 
 | Error | Cause | Fix |
-|-------|-------|-----|
+| ------- | ------- | ----- |
 | `CS0246: TestComponentBase not found` | Old inheritance | Change to `@inherits BunitContext` |
 | `CS0103: Fixture does not exist` | Old wrapper element | Remove `<Fixture>` tags |
 | `No tests discovered` | Missing `[Fact]` attribute | Add `[Fact]` to test methods |

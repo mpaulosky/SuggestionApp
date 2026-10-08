@@ -2,7 +2,8 @@
 
 **Last updated:** June 12, 2025
 
-These instructions define the required coding, architecture, and project rules for all .NET code in this repository. They are based on the actual practices and conventions in the TailwindBlogApp solution. For more details, see [CONTRIBUTING.md](../docs/CONTRIBUTING.md).
+These instructions define the required coding, architecture, and project rules for all .NET code in this repository.
+They are based on the actual practices and conventions in the TailwindBlogApp solution. For more details, see [CONTRIBUTING.md](../docs/CONTRIBUTING.md).
 
 ---
 
@@ -36,9 +37,11 @@ These instructions define the required coding, architecture, and project rules f
 - **Use .editorconfig:** `true`
 - **Preferred Modifier Order:** `public`, `private`, `protected`, `internal`, `static`, `readonly`, `const`
   - _Example:_
+
     ```csharp
     public static readonly int MY_CONST = 42;
     ```
+
 - **Use Explicit Type:** `true` (except where `var` improves clarity)
 - **Use Var:** `true` (when the type is obvious)
 - **Prefer Null Check:**

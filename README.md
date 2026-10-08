@@ -1,6 +1,6 @@
 # SuggestionApp
 
-## Blazor Server Application following the IAmTimCorey Lesson on building his Suggestion Application.
+## Blazor Server Application following the IAmTimCorey Lesson on building his Suggestion Application
 
 ## How to Engage, Contribute, and Give Feedback
 

@@ -1,0 +1,5 @@
+// Vendored with the open-iconic font, not written here: no Markdown rules apply.
+// MD013 is named because the root config sets it, which default: false does not undo.
+{
+  "config": { "default": false, "MD013": false }
+}
