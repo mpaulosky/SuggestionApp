@@ -26,7 +26,8 @@ public class DbConnection : IDbConnection
   {
     _config = config;
     Client = new MongoClient(_config.GetConnectionString(_connectionId));
-    DbName = _config["DatabaseName"];
+    DbName = _config["DatabaseName"]
+      ?? throw new InvalidOperationException("The DatabaseName setting is missing.");
     _db = Client.GetDatabase(DbName);
 
     CategoryCollection = _db.GetCollection<CategoryModel>(CategoryCollectionName);

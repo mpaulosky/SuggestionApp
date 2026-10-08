@@ -57,8 +57,8 @@
 
 @code {
 	private CreateSuggestionModel _suggestion = new();
-	private List<CategoryModel> _categories;
-	private UserModel _loggedInUser;
+	private List<CategoryModel>? _categories;
+	private UserModel? _loggedInUser;
 
 	protected override async Task OnInitializedAsync()
 	{
@@ -74,17 +74,24 @@
 
 	public async Task CreateSuggestion()
 	{
-		SuggestionModel s = new();
-		s.Suggestion = _suggestion.Suggestion;
-		s.Description = _suggestion.Description;
-		s.Author = new BasicUserModel(_loggedInUser);
-		s.Category = _categories.Where(c => c.Id == _suggestion.CategoryId).FirstOrDefault();
+		if (_loggedInUser is null)
+		{
+			NavManager.NavigateTo("/MicrosoftIdentity/Account/SignIn", true);
+			return;
+		}
 
-		if (s.Category is null)
+		var category = _categories?.FirstOrDefault(c => c.Id == _suggestion.CategoryId);
+		if (category is null)
 		{
 			_suggestion.CategoryId = "";
 			return;
 		}
+
+		SuggestionModel s = new();
+		s.Suggestion = _suggestion.Suggestion;
+		s.Description = _suggestion.Description;
+		s.Author = new BasicUserModel(_loggedInUser);
+		s.Category = category;
 
 		await SuggestionData.CreateSuggestion(s);
 		_suggestion = new();

@@ -3,8 +3,8 @@
 public class BasicUserModel
 {
   [BsonRepresentation(BsonType.ObjectId)]
-  public string Id { get; set; }
-  public string DisplayName { get; set; }
+  public string Id { get; set; } = null!;
+  public string DisplayName { get; set; } = string.Empty;
 
   public BasicUserModel()
   {

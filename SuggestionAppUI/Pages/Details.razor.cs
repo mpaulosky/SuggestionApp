@@ -5,12 +5,12 @@ namespace SuggestionAppUI.Pages;
 public partial class Details
 {
 	[Parameter]
-	public string Id { get; set; }
+	public string Id { get; set; } = string.Empty;
 
-	private SuggestionModel suggestion;
-	private UserModel loggedInUser;
-	private List<StatusModel> statuses;
-	private string settingStatus = "";
+	private SuggestionModel? suggestion;
+	private UserModel? loggedInUser;
+	private List<StatusModel>? statuses;
+	private string? settingStatus = "";
 	private string urlText = "";
 	protected async override Task OnInitializedAsync()
 	{
@@ -21,6 +21,11 @@ public partial class Details
 
 	private async Task CompleteSetStatus()
 	{
+		if (suggestion is null || statuses is null)
+		{
+			return;
+		}
+
 		switch (settingStatus)
 		{
 			case "completed":
@@ -59,6 +64,11 @@ public partial class Details
 
 	private string GetUpvoteTopText()
 	{
+		if (suggestion is null)
+		{
+			return "";
+		}
+
 		if (suggestion.UserVotes?.Count > 0)
 		{
 			return suggestion.UserVotes.Count.ToString("00");
@@ -78,7 +88,7 @@ public partial class Details
 
 	private string GetUpvoteBottomText()
 	{
-		if (suggestion.UserVotes?.Count > 1)
+		if (suggestion?.UserVotes?.Count > 1)
 		{
 			return "Upvotes";
 		}
@@ -90,6 +100,11 @@ public partial class Details
 
 	private async Task VoteUp()
 	{
+		if (suggestion is null)
+		{
+			return;
+		}
+
 		if (loggedInUser is not null)
 		{
 			if (suggestion.Author.Id == loggedInUser.Id)
@@ -113,11 +128,11 @@ public partial class Details
 
 	private string GetVoteClass()
 	{
-		if (suggestion.UserVotes is null || suggestion.UserVotes.Count == 0)
+		if (suggestion?.UserVotes is null || suggestion.UserVotes.Count == 0)
 		{
 			return "suggestion-detail-no-votes";
 		}
-		else if (suggestion.UserVotes.Contains(loggedInUser?.Id))
+		else if (loggedInUser is not null && suggestion.UserVotes.Contains(loggedInUser.Id))
 		{
 			return "suggestion-detail-voted";
 		}
@@ -129,7 +144,7 @@ public partial class Details
 
 	private string GetStatusClass()
 	{
-		if (suggestion is null | suggestion.SuggestionStatus is null)
+		if (suggestion?.SuggestionStatus is null)
 		{
 			return "suggestion-detail-status-none";
 		}
