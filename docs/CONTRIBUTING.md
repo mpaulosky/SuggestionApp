@@ -38,7 +38,8 @@ We have adopted a code of conduct from the Contributor Covenant. Contributors to
 
 ## What should I know before I get started
 
-This project is a project to build a [describe your solution, e.g., web application] with [technology stack, e.g., .NET, Blazor, MongoDB].
+SuggestionApp is a Blazor Server web application, on .NET 10, for posting and voting on suggestions. It stores its data in
+MongoDB and signs users in with Azure AD B2C through Microsoft.Identity.Web.
 
 ### Code Style & Commit Messages
 
@@ -49,51 +50,35 @@ This project is a project to build a [describe your solution, e.g., web applicat
 
 ### Project Folder Structure
 
-This project is designed to be built and run primarily with [your preferred IDEs/editors].
+This project can be built and run with Visual Studio, JetBrains Rider, Visual Studio Code or the `dotnet` CLI.
 The folders are configured so that they will support editing and working in other editors and on other operating systems.
 We encourage you to develop with these other environments, because we would like to be able to support developers who use those tools as well.
 The folders are configured as follows:
 
 ```bash
+.github/                                -- Workflows, instructions and templates
 docs/                                   -- Documentation and guides
+scripts/                                -- Local quality gate and PR title / branch name checks
 
-src/                                    -- Source code
-  Api/                                  -- API project
-    Properties/                         -- API project properties
-    bin/                                -- Build output
-    obj/                                -- Build objects
-    appsettings.json                    -- API configuration
-    appsettings.Development.json        -- API development config
-  Shared/                               -- Domain models, interfaces, and shared code
-    bin/                                -- Build output
-    obj/                                -- Build objects
-  Web/                                  -- UI project
-    Components/                         -- Blazor components
-      Layout/                           -- Layout components
-      Pages/                            -- Page components
-      _Imports.razor                    -- Razor imports
-      App.razor                         -- App root component
-      Routes.razor                      -- Route definitions
-    Properties/                         -- Web project properties
-    wwwroot/                            -- Static web assets (CSS, JS, etc.)
-    bin/                                -- Build output
-    obj/                                -- Build objects
-    appsettings.json                    -- Web configuration
-    appsettings.Development.json        -- Web development config
+SuggestionAppLibrary/                   -- Class library: models and data access
+  DataAccess/                           -- MongoDB connection and the I*Data / Mongo*Data stores
+  Models/                               -- Domain models
 
-tests/                                  -- Unit and Integration tests
-  Api.Tests.Integration/                -- API integration tests
-  Api.Tests.Unit/                       -- API unit tests
-  Architecture.Tests/                   -- Architecture and design rules tests
-  Shared.Tests.Unit/                    -- Shared library unit tests
-  Web.Tests.Integration/                -- Web integration tests
-  Web.Tests.Unit/                       -- Web/UI unit tests
+SuggestionAppUI/                        -- Blazor Server UI project
+  Components/                           -- Reusable components
+  Helpers/                              -- Authentication state helpers
+  Models/                               -- UI form models
+  Pages/                                -- Razor pages and their code-behind
+  Shared/                               -- Layout, login display and not-authorized views
+  wwwroot/                              -- Static web assets (CSS, JS, etc.)
+  appsettings.json                      -- UI configuration
+  Program.cs, RegisterServices.cs       -- Startup and service registration
 
- SuggestionApp.slnx                    -- Solution file
+SuggestionApp.slnx                      -- Solution file
 codecov.yml                             -- Code coverage configuration
-Directory.Packages.props                -- Central NuGet package management
+GitVersion.yml                          -- Versioning configuration
 global.json                             -- Global SDK version
-LICENSE.txt                             -- License
+LICENSE                                 -- License
 README.md                               -- Project overview
 ```
 
@@ -103,13 +88,12 @@ All official versions of the project are built and delivered with GitHub Actions
 
 ### Design Decisions
 
-Design for this project is ultimately decided by the project team lead ([maintainer name or role]). The following project tenets are adhered to when making decisions:
+Design for this project is ultimately decided by the project team lead (the repository maintainer). The following project tenets are adhered to when making decisions:
 
-1. Use [UI framework] for the UI.
-1. Use [database technology] for data persistence.
-1. Provide both [ORM/driver options] for data access.
-1. Use [cloud orchestration/tooling] for cloud-native orchestration.
-1. Follow clean architecture principles with repository pattern.
+1. Use Blazor Server for the UI.
+1. Use MongoDB, through MongoDB.Driver, for data persistence.
+1. Use Azure AD B2C, through Microsoft.Identity.Web, for authentication.
+1. Keep data access behind the `I*Data` interfaces in SuggestionAppLibrary.
 
 If you have suggestions, please open an issue or discuss in your pull request.
 
@@ -146,7 +130,7 @@ Please provide as much detail as possible, including steps to reproduce, expecte
 
 1. Create a branch in its own worktree, named for the existing Issue number (e.g. `fix/123-null-title`); see [PROCESS.md](PROCESS.md#branches-and-worktrees).
 1. Work on the issue.
-1. Create Unit, Integration tests for any code that require them. We use [your test frameworks, e.g., xUnit, bUnit] to test our code and components.
+1. Create Unit, Integration tests for any code that require them. We use xUnit to test our code and bUnit to test Blazor components.
 1. When you are done Create a Pull Request from your branch to the main branch.
 1. Submit the Pull Request.
 
