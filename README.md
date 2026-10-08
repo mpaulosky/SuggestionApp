@@ -27,3 +27,15 @@ Check out the [contributing page](./Contributing.md) to see the best places to l
 ## Code of conduct
 
 See the [CODE-OF-CONDUCT](./CODE-OF-CONDUCT.md) document.
+
+## Releases
+
+<!-- RELEASES_START -->
+
+| Version | Date | Title | Blog post |
+| ------- | ---- | ----- | --------- |
+| [v0.0.1](https://github.com/mpaulosky/SuggestionApp/releases/tag/v0.0.1) | 2026-10-08 | chore: Standardize on the repo-ci-baseline Template | [Post](https://github.com/mpaulosky/SuggestionApp/blob/main/docs/blogs/2026-10-08-pr-5-chore-standardize-on-the-repo-ci-baseline-template.md) |
+
+<!-- RELEASES_END -->
+
+[All releases →](https://github.com/mpaulosky/SuggestionApp/releases)
