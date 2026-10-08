@@ -1,5 +1,7 @@
 # Dependabot version updates. Every label used below must exist in the repo:
 # Dependabot doesn't create them, and silently leaves them off the PR.
+# This file is Seed, so it belongs to the repo: add its other ecosystems (such
+# as npm for a pnpm project) and its own ignores here.
 # https://docs.github.com/code-security/dependabot/working-with-dependabot/dependabot-options-reference
 ---
 
@@ -15,6 +17,10 @@ updates:
       day: "sunday"
       time: "16:00"
     open-pull-requests-limit: 10
+    # Conventional commits, like the repo's own: "chore(deps): bump ...".
+    commit-message:
+      prefix: "chore"
+      include: "scope"
     # Wait a week before proposing a new release, so a compromised or broken
     # one is usually caught upstream before it reaches a PR here.
     cooldown:
@@ -36,6 +42,10 @@ updates:
       day: "sunday"
       time: "16:00"
     open-pull-requests-limit: 10
+    # Conventional commits, like the repo's own: "chore(deps): bump ...".
+    commit-message:
+      prefix: "chore"
+      include: "scope"
     # Wait a week before proposing a new release, so a compromised or broken
     # one is usually caught upstream before it reaches a PR here.
     cooldown:
@@ -45,5 +55,30 @@ updates:
       - "dependencies"
     groups:
       all-nuget:
+        patterns:
+          - "*"
+
+  # Maintain DotNet Sdk
+  - package-ecosystem: "dotnet-sdk"
+    directory: "/"
+    target-branch: "main"
+    schedule:
+      interval: "weekly"
+      day: "sunday"
+      time: "16:00"
+    open-pull-requests-limit: 10
+    # Conventional commits, like the repo's own: "chore(deps): bump ...".
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    # Wait a week before proposing a new release, so a compromised or broken
+    # one is usually caught upstream before it reaches a PR here.
+    cooldown:
+      default-days: 7
+    labels:
+      - "dotnet-sdk"
+      - "dependencies"
+    groups:
+      dotnet-sdk:
         patterns:
           - "*"
