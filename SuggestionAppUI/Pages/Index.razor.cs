@@ -2,11 +2,11 @@ namespace SuggestionAppUI.Pages;
 
 public partial class Index
 {
-	private UserModel loggedInUser;
-	private List<SuggestionModel> suggestions;
-	private List<CategoryModel> categories;
-	private List<StatusModel> statuses;
-	private SuggestionModel archivingSuggestion;
+	private UserModel? loggedInUser;
+	private List<SuggestionModel>? suggestions;
+	private List<CategoryModel>? categories;
+	private List<StatusModel>? statuses;
+	private SuggestionModel? archivingSuggestion;
 	private string selectedCategory = "All";
 	private string selectedStatus = "All";
 	private string searchText = "";
@@ -22,9 +22,14 @@ public partial class Index
 
 	private async Task ArchiveSuggestion()
 	{
+		if (archivingSuggestion is null)
+		{
+			return;
+		}
+
 		archivingSuggestion.Archived = true;
 		await suggestionData.UpdateSuggestion(archivingSuggestion);
-		suggestions.Remove(archivingSuggestion);
+		suggestions?.Remove(archivingSuggestion);
 		archivingSuggestion = null;
 		//await FilterSuggestions();
 	}
@@ -44,14 +49,15 @@ public partial class Index
 	private async Task LoadAndVerifyUser()
 	{
 		var authState = await authProvider.GetAuthenticationStateAsync();
-		string objectId = authState.User.Claims.FirstOrDefault(c => c.Type.Contains("objectidentifier"))?.Value;
+		string? objectId = authState.User.Claims.FirstOrDefault(c => c.Type.Contains("objectidentifier"))?.Value;
 		if (string.IsNullOrWhiteSpace(objectId) == false)
 		{
 			loggedInUser = await userData.GetUserFromAuthentication(objectId) ?? new();
-			string firstName = authState.User.Claims.FirstOrDefault(c => c.Type.Contains("givenname"))?.Value;
-			string lastName = authState.User.Claims.FirstOrDefault(c => c.Type.Contains("surname"))?.Value;
-			string displayName = authState.User.Claims.FirstOrDefault(c => c.Type.Equals("name"))?.Value;
-			string email = authState.User.Claims.FirstOrDefault(c => c.Type.Contains("email"))?.Value;
+			// A claim the identity provider leaves out is stored as empty, not compared as null.
+			string firstName = authState.User.Claims.FirstOrDefault(c => c.Type.Contains("givenname"))?.Value ?? "";
+			string lastName = authState.User.Claims.FirstOrDefault(c => c.Type.Contains("surname"))?.Value ?? "";
+			string displayName = authState.User.Claims.FirstOrDefault(c => c.Type.Equals("name"))?.Value ?? "";
+			string email = authState.User.Claims.FirstOrDefault(c => c.Type.Contains("email"))?.Value ?? "";
 			bool isDirty = false;
 			if (objectId.Equals(loggedInUser.ObjectIdentifier) == false)
 			{
@@ -110,11 +116,11 @@ public partial class Index
 	private async Task LoadFilterState()
 	{
 		var stringResults = await sessionStorage.GetAsync<string>(nameof(selectedCategory));
-		selectedCategory = stringResults.Success ? stringResults.Value : "All";
+		selectedCategory = (stringResults.Success ? stringResults.Value : null) ?? "All";
 		stringResults = await sessionStorage.GetAsync<string>(nameof(selectedStatus));
-		selectedStatus = stringResults.Success ? stringResults.Value : "All";
+		selectedStatus = (stringResults.Success ? stringResults.Value : null) ?? "All";
 		stringResults = await sessionStorage.GetAsync<string>(nameof(searchText));
-		searchText = stringResults.Success ? stringResults.Value : "";
+		searchText = (stringResults.Success ? stringResults.Value : null) ?? "";
 		var boolResults = await sessionStorage.GetAsync<bool>(nameof(isSortedByNew));
 		isSortedByNew = boolResults.Success ? boolResults.Value : true;
 	}
@@ -200,7 +206,7 @@ public partial class Index
 			}
 
 			await suggestionData.UpvoteSuggestion(suggestion.Id, loggedInUser.Id);
-			if (isSortedByNew == false)
+			if (isSortedByNew == false && suggestions is not null)
 			{
 				suggestions = suggestions.OrderByDescending(s => s.UserVotes.Count).ThenByDescending(s => s.DateCreated).ToList();
 			}
@@ -265,7 +271,7 @@ public partial class Index
 		{
 			return "suggestion-entry-no-votes";
 		}
-		else if (suggestion.UserVotes.Contains(loggedInUser?.Id))
+		else if (loggedInUser is not null && suggestion.UserVotes.Contains(loggedInUser.Id))
 		{
 			return "suggestion-entry-voted";
 		}
@@ -277,7 +283,7 @@ public partial class Index
 
 	private string GetSuggestionStatusClass(SuggestionModel suggestion)
 	{
-		if (suggestion is null | suggestion.SuggestionStatus is null)
+		if (suggestion?.SuggestionStatus is null)
 		{
 			return "suggestion-entry-status-none";
 		}

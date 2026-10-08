@@ -5,14 +5,19 @@ namespace SuggestionAppUI.Helpers;
 public static class AuthenticationStateProviderHelpers
 {
 
-	public static async Task<UserModel> GetUserFromAuth(
+	public static async Task<UserModel?> GetUserFromAuth(
 		this AuthenticationStateProvider provider,
 		IUserData userData)
 	{
 
 		var authState = await provider.GetAuthenticationStateAsync();
-		string objectId = authState.User.Claims
+		string? objectId = authState.User.Claims
 			.FirstOrDefault(c => c.Type.Contains("objectidentifier"))?.Value;
+		if (objectId is null)
+		{
+			return null;
+		}
+
 		return await userData.GetUserFromAuthentication(objectId);
 
 	}

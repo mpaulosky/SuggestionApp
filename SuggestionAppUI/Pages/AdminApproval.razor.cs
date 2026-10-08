@@ -2,8 +2,8 @@ namespace SuggestionAppUI.Pages;
 
 public partial class AdminApproval
 {
-	private List<SuggestionModel> submissions;
-	private SuggestionModel editingModel;
+	private List<SuggestionModel>? submissions;
+	private SuggestionModel? editingModel;
 	private string currentEditingTitle = "";
 	private string editedTitle = "";
 	private string currentEditingDescription = "";
@@ -16,14 +16,14 @@ public partial class AdminApproval
 	private async Task ApproveSubmission(SuggestionModel submission)
 	{
 		submission.ApprovedForRelease = true;
-		submissions.Remove(submission);
+		submissions?.Remove(submission);
 		await suggestionData.UpdateSuggestion(submission);
 	}
 
 	private async Task RejectSubmission(SuggestionModel submission)
 	{
 		submission.Rejected = true;
-		submissions.Remove(submission);
+		submissions?.Remove(submission);
 		await suggestionData.UpdateSuggestion(submission);
 	}
 

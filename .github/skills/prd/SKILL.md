@@ -8,7 +8,8 @@ license: MIT
 
 ## Overview
 
-Design comprehensive, production-grade Product Requirements Documents (PRDs) that bridge the gap between business vision and technical execution. This skill works for modern software systems, ensuring that requirements are clearly defined.
+Design comprehensive, production-grade Product Requirements Documents (PRDs) that bridge the gap between business vision and technical execution.
+This skill works for modern software systems, ensuring that requirements are clearly defined.
 
 ## When to Use
 
@@ -117,7 +118,7 @@ You **MUST** follow this exact structure for the output:
 
 ## Example: Intelligent Search System
 
-### 1. Executive Summary
+### 1. Executive Summary (Example)
 
 **Problem**: Users struggle to find specific documentation snippets in massive repositories.
 **Solution**: An intelligent search system that provides direct answers with source citations.

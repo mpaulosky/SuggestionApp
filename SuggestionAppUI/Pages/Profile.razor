@@ -123,20 +123,24 @@
 
 
 @code {
-	private UserModel loggedInUser;
-	private List<SuggestionModel> submissions;
-	private List<SuggestionModel> approved;
-	private List<SuggestionModel> archived;
-	private List<SuggestionModel> pending;
-	private List<SuggestionModel> rejected;
+	private UserModel? loggedInUser;
+	private List<SuggestionModel>? submissions;
+	private List<SuggestionModel>? approved;
+	private List<SuggestionModel>? archived;
+	private List<SuggestionModel>? pending;
+	private List<SuggestionModel>? rejected;
 
 	protected async override Task OnInitializedAsync()
 	{
 		loggedInUser = await authProvider.GetUserFromAuth(userData);
+		if (loggedInUser is null)
+		{
+			return;
+		}
 
 		var results = await suggestionData.GetUsersSuggestions(loggedInUser.Id);
 
-		if (loggedInUser is not null && results is not null)
+		if (results is not null)
 		{
 			submissions = results.OrderByDescending(s => s.DateCreated).ToList();
 			approved = submissions

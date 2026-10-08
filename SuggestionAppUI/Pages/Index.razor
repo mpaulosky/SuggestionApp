@@ -21,7 +21,7 @@
 	<div class="col-md-4 col-xl-3 search-box">
 		<input type="text" placeholder="Search"
 					 aria-label="Search box" class="form-control rounded-control"
-					 @oninput="((txt) => OnSearchInput((string)txt.Value))" />
+					 @oninput="((txt) => OnSearchInput(txt.Value?.ToString() ?? string.Empty))" />
 	</div>
 	<div class="col-12 d-block d-md-none">
 		@if (categories is not null && showCategories)
