@@ -34,6 +34,7 @@ See the [CODE-OF-CONDUCT](./CODE-OF-CONDUCT.md) document.
 
 | Version | Date | Title | Blog post |
 | ------- | ---- | ----- | --------- |
+| [v0.0.6](https://github.com/mpaulosky/SuggestionApp/releases/tag/v0.0.6) | 2026-10-10 | chore: Re-apply the repo-ci-baseline Template | [Post](https://github.com/mpaulosky/SuggestionApp/blob/main/docs/blogs/2026-10-10-pr-15-chore-re-apply-the-repo-ci-baseline-template.md) |
 | [v0.0.5](https://github.com/mpaulosky/SuggestionApp/releases/tag/v0.0.5) | 2026-10-09 | chore: Re-apply the repo-ci-baseline Template | [Post](https://github.com/mpaulosky/SuggestionApp/blob/main/docs/blogs/2026-10-09-pr-13-chore-re-apply-the-repo-ci-baseline-template.md) |
 | [v0.0.4](https://github.com/mpaulosky/SuggestionApp/releases/tag/v0.0.4) | 2026-10-08 | chore: Re-apply the repo-ci-baseline Template | [Post](https://github.com/mpaulosky/SuggestionApp/blob/main/docs/blogs/2026-10-08-pr-11-chore-re-apply-the-repo-ci-baseline-template.md) |
 | [v0.0.3](https://github.com/mpaulosky/SuggestionApp/releases/tag/v0.0.3) | 2026-10-08 | chore: Re-apply the repo-ci-baseline Template | [Post](https://github.com/mpaulosky/SuggestionApp/blob/main/docs/blogs/2026-10-08-pr-9-chore-re-apply-the-repo-ci-baseline-template.md) |
