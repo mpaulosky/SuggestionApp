@@ -4,6 +4,7 @@ This directory contains concise release-review posts for merged PR releases.
 
 | Date | Title | Tags |
 | ---- | ----- | ---- |
+| 2026-10-16 | [chore: Re-apply the repo-ci-baseline Template](2026-10-16-pr-30-chore-re-apply-the-repo-ci-baseline-template.md) | release,automation |
 | 2026-10-16 | [build(deps): Pin the patched System.Security.Cryptography.Pkcs](2026-10-16-pr-28-build-deps-pin-the-patched-system-security-cryptography-pkcs.md) | release,automation |
 | 2026-10-10 | [chore: Re-apply the repo-ci-baseline Template](2026-10-10-pr-25-chore-re-apply-the-repo-ci-baseline-template.md) | release,automation |
 | 2026-10-10 | [chore: Re-apply the repo-ci-baseline Template](2026-10-10-pr-23-chore-re-apply-the-repo-ci-baseline-template.md) | release,automation |
