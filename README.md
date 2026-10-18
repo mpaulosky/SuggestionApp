@@ -34,6 +34,7 @@ See the [CODE-OF-CONDUCT](./CODE-OF-CONDUCT.md) document.
 
 | Version | Date | Title | Blog post |
 | ------- | ---- | ----- | --------- |
+| [v0.0.17](https://github.com/mpaulosky/SuggestionApp/releases/tag/v0.0.17) | 2026-10-18 | chore: Re-apply the repo-ci-baseline Template | [Post](https://github.com/mpaulosky/SuggestionApp/blob/main/docs/blogs/2026-10-18-pr-39-chore-re-apply-the-repo-ci-baseline-template.md) |
 | [v0.0.16](https://github.com/mpaulosky/SuggestionApp/releases/tag/v0.0.16) | 2026-10-18 | chore(deps): Have Dependabot ignore claude-code-action | [Post](https://github.com/mpaulosky/SuggestionApp/blob/main/docs/blogs/2026-10-18-pr-37-chore-deps-have-dependabot-ignore-claude-code-action.md) |
 | [v0.0.15](https://github.com/mpaulosky/SuggestionApp/releases/tag/v0.0.15) | 2026-10-18 | chore: Re-apply the repo-ci-baseline Template | [Post](https://github.com/mpaulosky/SuggestionApp/blob/main/docs/blogs/2026-10-18-pr-34-chore-re-apply-the-repo-ci-baseline-template.md) |
 | [v0.0.14](https://github.com/mpaulosky/SuggestionApp/releases/tag/v0.0.14) | 2026-10-16 | build(deps): Update NuGet packages | [Post](https://github.com/mpaulosky/SuggestionApp/blob/main/docs/blogs/2026-10-16-pr-32-build-deps-update-nuget-packages.md) |
@@ -43,7 +44,6 @@ See the [CODE-OF-CONDUCT](./CODE-OF-CONDUCT.md) document.
 | [v0.0.10](https://github.com/mpaulosky/SuggestionApp/releases/tag/v0.0.10) | 2026-10-10 | chore: Re-apply the repo-ci-baseline Template | [Post](https://github.com/mpaulosky/SuggestionApp/blob/main/docs/blogs/2026-10-10-pr-23-chore-re-apply-the-repo-ci-baseline-template.md) |
 | [v0.0.9](https://github.com/mpaulosky/SuggestionApp/releases/tag/v0.0.9) | 2026-10-10 | chore: Re-apply the repo-ci-baseline Template | [Post](https://github.com/mpaulosky/SuggestionApp/blob/main/docs/blogs/2026-10-10-pr-21-chore-re-apply-the-repo-ci-baseline-template.md) |
 | [v0.0.8](https://github.com/mpaulosky/SuggestionApp/releases/tag/v0.0.8) | 2026-10-10 | chore: Re-apply the repo-ci-baseline Template | [Post](https://github.com/mpaulosky/SuggestionApp/blob/main/docs/blogs/2026-10-10-pr-19-chore-re-apply-the-repo-ci-baseline-template.md) |
-| [v0.0.7](https://github.com/mpaulosky/SuggestionApp/releases/tag/v0.0.7) | 2026-10-10 | chore: Re-apply the repo-ci-baseline Template | [Post](https://github.com/mpaulosky/SuggestionApp/blob/main/docs/blogs/2026-10-10-pr-17-chore-re-apply-the-repo-ci-baseline-template.md) |
 
 <!-- RELEASES_END -->
 
